@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert --volumes hostPath
+    kompose.version: 1.28.0 (c4137012e)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: celery
+  name: celery
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: celery
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert --volumes hostPath
+        kompose.version: 1.28.0 (c4137012e)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/devops-challenge-default: "true"
+        io.kompose.service: celery
+    spec:
+      containers:
+        - args:
+            - celery
+            - --app=core
+            - worker
+            - --loglevel=info
+          env:
+            - name: CELERY_BACKEND
+              value: redis://redis:6379/0
+            - name: CELERY_BROKER
+              value: redis://redis:6379/0
+            - name: DEBUG
+              value: "1"
+            - name: DJANGO_ALLOWED_HOSTS
+              value: localhost 127.0.0.1 [::1]
+            - name: SECRET_KEY
+              value: dbaa1_i7%*3r9-=z-+_mz4r-!qeed@(-a_r(g@k8jo8y3r27%m
+          image: cicdapplication/devops_challenge_celery:andrine
+          name: celery
+          resources: {}
+          volumeMounts:
+            - mountPath: /usr/src/app
+              name: celery-hostpath0
+      restartPolicy: Always
+      volumes:
+        - hostPath:
+            path: /home/andrinem/Documents/devops_challenge/devops_challenge_app
+          name: celery-hostpath0
+status: {}
