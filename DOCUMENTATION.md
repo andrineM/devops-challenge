@@ -69,3 +69,12 @@ $ minikube service flower-service
 
 # Delete cluster when done
 $ minikube delete
+
+
+### 7. Credits for the Asiignments goes to:
+
+    https://code.tutsplus.com/tutorials/using-celery-with-django-for-background-task-processing--cms-28732
+    https://medium.com/google-cloud/deploying-django-postgres-and-redis-containers-to-kubernetes-part-2-b287f7970a33
+    https://kubernetes.io/docs/tutorials/stateless-application/guestbook/
+    https://markgituma.medium.com/kubernetes-local-to-production-with-django-4-celery-with-redis-and-flower-df48ab9896b7
+    https://testdriven.io/blog/django-and-celery/
