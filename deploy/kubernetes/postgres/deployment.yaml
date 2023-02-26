@@ -30,7 +30,7 @@ spec:
                   key: password
 
             - name: POSTGRES_DB
-              value: django_celery
+              value: kubernetes_django
 
           ports:
             - containerPort: 5432
