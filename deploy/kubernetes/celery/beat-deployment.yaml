@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: celery-beat
-          image: cicdapplication/devopschallenge:v1 
+          image:  cicdapplication/devops-challenge_celery:v1
           command: ['celery', '-A', 'django_celery', 'beat', '-l', 'DEBUG']
           env:
             - name: POSTGRES_USER

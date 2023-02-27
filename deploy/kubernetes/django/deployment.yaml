@@ -16,7 +16,8 @@ spec:
     spec:
       containers:
         - name: django
-          image: cicdapplication/devopschallenge:v1 
+          image: cicdapplication/devops-challenge_web:v1
+          command: ['/bin/bash', 'run.sh'] # runs migrations and starts the server
           ports:
             - containerPort: 8000
           env:

@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: celery-worker
-          image: cicdapplication/devopschallenge:v1
+          image: cicdapplication/devops-challenge_celery:v1 
           command: ['celery', '-A', 'django_celery', 'worker', '-l', 'INFO']
           env:
             - name: POSTGRES_USER

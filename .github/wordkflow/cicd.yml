@@ -1,10 +1,21 @@
-name: CI
+name: deploy to Local miki-kube 
 on:
-  - pull_request
+  push:
+    branches: [ test ]
 jobs:
-  job1:
+  build:
+    name: Deploy
     runs-on: ubuntu-latest
-    name: build example and deploy to minikube
+    steps:
+    - name: executing remote connection
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.CICD_SECRET }}
+        port: ${{ secrets.PORT }}
+        command_timeout: 200m        
+   - name: build example and deploy to minikube
     steps:
     - uses: actions/checkout@v2
     - name: Start minikube
@@ -15,15 +26,12 @@ jobs:
       run: |
         export SHELL=/bin/bash
         eval $(minikube -p minikube docker-env)
-        docker build -f ./Dockerfile -t local/example .
+        docker build -f ./Dockerfile -t  cicdapplication/devops-challenge_web:v1.
         echo -n "verifying images:"
         docker images        
     - name: Deploy to minikube
       run:
-        kubectl apply -f deploy-to-minikube.yaml
+        kubectl applyy -f /django 
     - name: Test service URLs
       run: |
-        minikube service list
-        minikube service example --url
-        echo "------------------opening the service------------------"
-        curl $(minikube service example --url)        
+        kubectl get pods        
